@@ -1,0 +1,129 @@
+<p-dataView [value]="targets" [paginator]="true" [rows]="5">
+    <ng-template let-target pTemplate="listItem">
+        <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #333333">
+            <div class="ui-g-12 ui-md-8 route-details">
+                <div class="ui-g-2 ui-sm-6">Target: </div>
+                <div class="ui-g-10 ui-sm-6">
+                    <b>{{target.targetName}}</b>
+                </div>
+                <div class="ui-g-2 ui-sm-6">Domain: </div>
+                <div class="ui-g-10 ui-sm-6">
+                    <b>{{target.targetDomain}}</b>
+                </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-8 route-details">
+                <div class="ui-g">
+                    <div class="ui-g-2 ui-sm-6">Phone Number: </div>
+                    <div class="ui-g-10 ui-sm-6">
+                        <b>{{target.targetPhoneNumber}}</b>
+                    </div>
+                    <div class="ui-g-2 ui-sm-6">Performance: </div>
+                    <div class="ui-g-10 ui-sm-6">
+                        <b>{{target.targetPerformance}}</b>
+                    </div>
+                    <div class="ui-g-2 ui-sm-6">Description: </div>
+                    <div class="ui-g-10 ui-sm-6">
+                        <b>{{target.targetDescription}}</b>
+                    </div>
+                    <div class="ui-g-2 ui-sm-6">Status: </div>
+                    <div class="ui-g-10 ui-sm-6">
+                        <b>{{target.targetStatus}}</b>
+                    </div>
+                    <div class="ui-g-2 ui-sm-6">
+                        <button pButton type="button" label="Edit" class="ui-button-rounded" icon="pi pi-user-edit" (click)="editTarget($event, target)"></button>
+                    </div>
+                    <div class="ui-g-2 ui-sm-6">
+                        <button pButton type="button" label="Delete" class="ui-button-rounded" pButton icon="pi pi-trash" (click)="deleteTarget($event, target)"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dataView>
+
+<p-dialog header="Target Details" [(visible)]="editDialog" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width:'750px'}">
+    <form [formGroup]="targetform" (ngSubmit)="onSubmit(targetform.value)">
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">
+                    Name *:
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText type="text" [(ngModel)]="selectedTarget && selectedTarget.targetName" formControlName="targetName" placeholder="Required"
+                    />
+                </div>
+                <div class="ui-grid-col-4">
+                    <p-message severity="error" text="Target Name is required" *ngIf="!targetform.controls['targetName'].valid&&targetform.controls['targetName'].dirty"></p-message>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">
+                    Domain:
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText type="text" [(ngModel)]="selectedTarget && selectedTarget.targetDomain" formControlName="domain" placeholder="Required"
+                    />
+                </div>
+                <div class="ui-grid-col-4">
+                    <p-message severity="error" text="target description is required" *ngIf="!targetform.controls['domain'].valid&&targetform.controls['domain'].dirty"></p-message>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">
+                    Phone Number *:
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText type="text" [(ngModel)]="selectedTarget && selectedTarget.targetPhoneNumber" formControlName="phnumber"
+                        placeholder="xxx-xxx-xxxx" minlength="12" [textMask]="{mask: phoneMask, placeholderChar:'\u2000', guide:false, keepCharPosition: false}"  />
+                </div>
+                <div class="ui-grid-col-4">
+                    <p-message severity="error" text="Phone number is not valid" *ngIf="!targetform.controls['phnumber'].valid&&targetform.controls['phnumber'].dirty"></p-message>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">
+                    Performance *:
+                </div>
+                <div class="ui-grid-col-6">
+                    <p-dropdown [options]="performances" [(ngModel)]="selectedTarget && selectedTarget.targetPerformance" formControlName="performance"></p-dropdown>
+                </div>
+                <div class="ui-grid-col-4">
+                    <p-message severity="error" text="Performance is required" *ngIf="!targetform.controls['performance'].valid&&targetform.controls['performance'].dirty"></p-message>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">
+                    Description :
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText type="text" [(ngModel)]="selectedTarget && selectedTarget.targetDescription" formControlName="description"
+                    />
+                </div>
+                <div class="ui-grid-col-4">
+                    <p-message severity="error" text="target description is required" *ngIf="!targetform.controls['description'].valid&&targetform.controls['description'].dirty"></p-message>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">
+                    Status *:
+                </div>
+                <div class="ui-grid-col-6">
+                    <p-dropdown [options]="statuses" [(ngModel)]="selectedTarget && selectedTarget.targetStatus" formControlName="status"></p-dropdown>
+                </div>
+                <div class="ui-grid-col-4">
+                    <p-message severity="error" text="Status is required" *ngIf="!targetform.controls['status'].valid&&targetform.controls['status'].dirty"></p-message>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4"></div>
+                <div class="ui-grid-col-6">
+                    <button pButton type="submit" label="Update Target" [disabled]="!targetform.valid"></button>
+                </div>
+                <div class="ui-grid-col-4"></div>
+            </div>
+        </div>
+    </form>
+</p-dialog>
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

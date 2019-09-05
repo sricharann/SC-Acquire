@@ -1,0 +1,38 @@
+<p-dataView [value]="rejectedTargets" [paginator]="true" [rows]="5">
+        <ng-template let-rejectedTarget pTemplate="listItem">
+            <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #333333">
+                <div class="ui-g-12 ui-md-8 route-details">
+                    <div class="ui-g-2 ui-sm-6">Target: </div>
+                    <div class="ui-g-10 ui-sm-6">
+                        <b>{{rejectedTarget.targetName}}</b>
+                    </div>
+                    <div class="ui-g-2 ui-sm-6">Domain: </div>
+                    <div class="ui-g-10 ui-sm-6">
+                        <b>{{rejectedTarget.targetDomain}}</b>
+                    </div>
+                </div>
+    
+                <div class="ui-g-12 ui-md-8 route-details">
+                    <div class="ui-g">
+                        <div class="ui-g-2 ui-sm-6">Phone Number: </div>
+                        <div class="ui-g-10 ui-sm-6">
+                            <b>{{rejectedTarget.targetPhoneNumber}}</b>
+                        </div>
+                        <div class="ui-g-2 ui-sm-6">Performance: </div>
+                        <div class="ui-g-10 ui-sm-6">
+                            <b>{{rejectedTarget.targetPerformance}}</b>
+                        </div>
+                        <div class="ui-g-2 ui-sm-6">Description: </div>
+                        <div class="ui-g-10 ui-sm-6">
+                            <b>{{rejectedTarget.targetDescription}}</b>
+                        </div>
+                        <div class="ui-g-2 ui-sm-6">Status: </div>
+                        <div class="ui-g-10 ui-sm-6">
+                            <b>{{rejectedTarget.targetStatus}}</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataView>
+    

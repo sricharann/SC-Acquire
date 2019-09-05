@@ -1,0 +1,24 @@
+{
+    "data" :[
+   { "targetID": "1",
+    "targetName": "ABC",
+    "targetInfo": "askldasdasdsd",
+    "targetStatus": "open",
+    "targetContactInfo": "111-111-1111",
+    "targetPerformance": "moderate"
+   },
+   { "targetID": "2",
+    "targetName": "DEF",
+    "targetInfo": "dasdadweq",
+    "targetStatus": "in-progress",
+    "targetContactInfo": "222-222-2222",
+    "targetPerformance": "good"
+   },
+   { "targetID": "3",
+    "targetName": "ABC",
+    "targetInfo": "askldasdasdsd",
+    "targetStatus": "open",
+    "targetContactInfo": "333-333-3333",
+    "targetPerformance": "excellent"
+   }]
+}

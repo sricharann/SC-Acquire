@@ -1,0 +1,81 @@
+<p-toast [style]="{marginTop: '80px'}">
+</p-toast>
+
+<form [formGroup]="targetform" (ngSubmit)="onSubmit(targetform.value)">
+    <p-panel header="Create Target">
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    Name *:
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText type="text" formControlName="targetName" placeholder="Required" />
+                </div>
+                <div class="ui-grid-col-4">
+                    <p-message severity="error" text="Target Name is required" *ngIf="!targetform.controls['targetName'].valid&&targetform.controls['targetName'].dirty"></p-message>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    Domain *:
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText type="text" formControlName="domain" placeholder="Required" />
+                </div>
+                <div class="ui-grid-col-4">
+                    <p-message severity="error" text="target description is required" *ngIf="!targetform.controls['domain'].valid&&targetform.controls['domain'].dirty"></p-message>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    Phone Number *:
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText type="text" formControlName="phnumber" placeholder="xxx-xxx-xxxx" minlength="12" [textMask]="{mask: phoneMask, placeholderChar:'\u2000', guide:false, keepCharPosition: false}" />
+                </div>
+                <div class="ui-grid-col-4">
+                    <p-message severity="error" text="Phone number is required" *ngIf="!targetform.controls['phnumber'].valid&&targetform.controls['phnumber'].dirty"></p-message>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    Status *:
+                </div>
+                <div class="ui-grid-col-6">
+                    <p-dropdown [options]="statuses" formControlName="status"></p-dropdown>
+                </div>
+                <div class="ui-grid-col-4">
+                    <p-message severity="error" text="Status is required" *ngIf="!targetform.controls['status'].valid&&targetform.controls['status'].dirty"></p-message>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    Description:
+                </div>
+                <div class="ui-grid-col-6">
+                    <textarea pInputTextarea type="text" formControlName="description"></textarea>
+                </div>
+                <div class="ui-grid-col-4"></div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    Performance *:
+                </div>
+                <div class="ui-grid-col-6">
+                    <p-dropdown [options]="performances" formControlName="performance"></p-dropdown>
+                </div>
+                <div class="ui-grid-col-4">
+                    <p-message severity="error" text="Performance is required" *ngIf="!targetform.controls['performance'].valid&&targetform.controls['performance'].dirty"></p-message>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2"></div>
+                <div class="ui-grid-col-6">
+                    <button pButton type="submit" label="Create Target" [disabled]="!targetform.valid"></button>
+                </div>
+                <div class="ui-grid-col-4"></div>
+            </div>
+        </div>
+    </p-panel>
+</form>
+<p-progressBar [value]="progressValue"></p-progressBar>
